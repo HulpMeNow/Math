@@ -5,6 +5,9 @@ To change the function this code works for, you need to change the function f(x)
 This is a simple program, and will work for any situation where you want to do monte carlo by finding hits under or over a curve. 
 
 """
+import numpy as np
+import matplotlib.pyplot as plt
+
 #function
 def f(x):
     return (np.sin(x)/x) #integrand function, assume f(x)>=0
