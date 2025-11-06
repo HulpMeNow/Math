@@ -1,0 +1,35 @@
+"""
+This is a monte carlo simulation program made in Python. the values a,b inside the function represent the domain, and 0,M represent the range.
+To change the function this code works for, you need to change the function f(x).
+
+This is a simple program, and will work for any situation where you want to do monte carlo by finding hits under or over a curve. 
+
+"""
+#function
+def f(x):
+    return (np.sin(x)/x) #integrand function, assume f(x)>=0
+
+#bounds
+a = 1 #lower limit of integration
+b = np.pi #upper limit of integration
+M = np.sin(1) #maximum value of f(x) in [a,b]
+
+#Monte Carlo Simulation to approximate the definite integral of f(x) = e^(-x^2) on [a,b] = [0,2]
+def MonteCarlo(runs, numpts):
+    approximate_integral_values = []
+    for m in range(runs):
+        # Generate uniform random points in [a,b]x[0,M]
+        x = np.random.uniform(a, b, numpts)
+        y = np.random.uniform(0, M, numpts)
+
+        numhits = 0 #initialize the number of times that the random point falls in the area under the curve
+        for i in range(numpts):
+            if y[i] <= f(x[i]):
+                numhits += 1
+        approximate_integral_values.append(n( (b-a) * M * numhits/numpts, digits=5 ) )
+    return approximate_integral_values;
+
+runs=10 #number of Monte Carlo runs
+numpts = 10000 #number of uniform random points generated in the rectangle [a,b]x[0,M] for each Monte Carlo run
+monte = MonteCarlo(runs, numpts)
+print("The area under y=f(x) from a to b for each of the " + str(runs) + " runs with " + str(numpts) + " points each is approximately equal to \n", str(monte),  "Average is: " + str((sum(monte) / len(monte))))
